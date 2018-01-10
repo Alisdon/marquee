@@ -2,9 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>滚动元素</title>
+    <title>首页滚动</title>
+    <style>
+        span {
+            padding: 10px 0;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
+<div id="marqueeContainer" style="overflow: hidden;width:150px; height:400px;">
+    <div id="marqueeContent">
+        <span>这是1行滚动的文本</span>
+    </div>
+</div>
 
+<script type="text/javascript" src="marquee.js"></script>
 </body>
 </html>
