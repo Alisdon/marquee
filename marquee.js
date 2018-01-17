@@ -3,7 +3,7 @@
  */
 window.onload = function () {
     var demo = document.getElementById('marqueeContainer')
-    var demo1 = document.getElementById('marqueeContent')
+    var demo1 = demo.children[0]
     var speed = 5   // 移动速度，值越大越慢，可修改控制
     var elementNum = 2   //默认需要两个元素叠加，不可修改
 
@@ -11,17 +11,14 @@ window.onload = function () {
      * 复制一个与滚动元素一样内容的容器
      * @type {Element}
      */
-    var demo2 = document.createElement('div')
-    demo2.innerHTML = demo1.innerHTML
+    var demo2 = demo1.cloneNode(true)
     demo.appendChild(demo2)
 
     /**
      * 判断滚动内容是否占满容器
      */
     while ((demo1.offsetHeight * elementNum) / (2 * demo.offsetHeight) < 1) {
-        var div = document.createElement('div')
-        div.innerHTML = demo1.innerHTML
-        demo.appendChild(div)
+        demo.appendChild(demo1.cloneNode(true))
 
         elementNum++
     }
@@ -31,11 +28,14 @@ window.onload = function () {
      * @constructor
      */
     function Marquee() {
-        if (demo2.offsetTop - demo.scrollTop <= 0)
-            demo.scrollTop -= demo1.offsetHeight
-        else {
-            demo.scrollTop++
-        }
+        if (demo1.offsetHeight > demo.offsetHeight &&
+             demo.scrollTop + demo.offsetHeight == demo1.offsetHeight + demo2.offsetHeight) {
+             demo.scrollTop = 0
+         } else if (demo2.offsetTop - demo.scrollTop <= 0) {
+             demo.scrollTop -= demo1.offsetHeight
+         } else {
+             demo.scrollTop++
+         }
     }
 
     /**
